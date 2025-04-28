@@ -9,7 +9,7 @@ const DocumentManagementPage = () => {
   const [documents, setDocuments] = useState<DocumentData[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [newDocument, setNewDocument] = useState({ name: "", content: "", uploadedBy:"" });
+  const [newDocument, setNewDocument] = useState<File | null>(null);
 
   useEffect(() => {
     const fetchDocuments = async () => {
@@ -29,8 +29,8 @@ const DocumentManagementPage = () => {
   }, []);
 
   const handleUpload = async () => {
-    if (!newDocument.name || !newDocument.content) {
-      setError("Document name and content are required.");
+    if (!newDocument) {
+      setError("Please select a file to upload.");
       return;
     }
 
@@ -39,12 +39,12 @@ const DocumentManagementPage = () => {
     try {
       const response = await documentService.uploadDocument(
         newDocument.name,
-        newDocument.content,
+        "Content of " + newDocument.name,
         user ? user?.email : ''
       );
       if (response.success) {
-        setDocuments(response.mockDocuments);
-        setNewDocument({ name: "", content: "", uploadedBy:"" });
+        setDocuments(response.mockDocuments)
+        setNewDocument(null);
       } else {
         setError(response.message);
       }
@@ -81,16 +81,9 @@ const DocumentManagementPage = () => {
       <div className="mb-4">
         <h2 className="text-lg font-semibold">Upload New Document</h2>
         <input
-          type="text"
-          placeholder="Document Name"
-          value={newDocument.name}
-          onChange={(e) => setNewDocument({ ...newDocument, name: e.target.value })}
-          className="border p-2 mb-2 w-full"
-        />
-        <textarea
-          placeholder="Document Content"
-          value={newDocument.content}
-          onChange={(e) => setNewDocument({ ...newDocument, content: e.target.value })}
+          type="file"
+          placeholder="Select a document"
+          onChange={(e) => setNewDocument(e.target.files ? e.target.files[0] : null)}
           className="border p-2 mb-2 w-full"
         />
         <button onClick={handleUpload} className="bg-blue-500 text-white px-4 py-2 rounded">
