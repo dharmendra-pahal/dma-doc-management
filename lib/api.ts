@@ -3,8 +3,6 @@
 import { v4 as uuidv4 } from "uuid";
 import { User, UserResponse } from "./types";
 
-
-
 const mockUsers: User[] = [
   {
     id: 'someid',
@@ -12,6 +10,21 @@ const mockUsers: User[] = [
     password: "password",
     role: "user",
   },
+];
+
+// Mock data for documents, ingestion, and Q&A
+const mockDocuments = [
+  { id: uuidv4(), name: "Document 1", content: "Sample content for Document 1", uploadedBy: "test@example.com" },
+  { id: uuidv4(), name: "Document 2", content: "Sample content for Document 2", uploadedBy: "admin@example.com" },
+];
+
+const mockIngestionStatus = [
+  { id: uuidv4(), status: "Completed", timestamp: new Date().toISOString() },
+  { id: uuidv4(), status: "In Progress", timestamp: new Date().toISOString() },
+];
+
+const mockQAResponses = [
+  { question: "What is Document 1?", answer: "Document 1 is a sample document.", documentExcerpt: "Sample content for Document 1" },
 ];
 
 const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
@@ -49,3 +62,67 @@ export const authService = {
   }
 
 }
+
+export const userService = {
+  fetchUsers: async (): Promise<User[]> => {
+    await delay(500);
+    return mockUsers;
+  },
+
+  updateUserRole: async (userId: string, role: string): Promise<{ success: boolean; message: string }> => {
+    await delay(500);
+    const user = mockUsers.find((u) => u.id === userId);
+    if (user) {
+      user.role = role;
+      return { success: true, message: "User role updated successfully." };
+    }
+    return { success: false, message: "User not found." };
+  },
+};
+
+export const documentService = {
+  fetchDocuments: async (): Promise<typeof mockDocuments> => {
+    await delay(500);
+    return mockDocuments;
+  },
+
+  uploadDocument: async (name: string, content: string, uploadedBy: string): Promise<{ success: boolean; message: string }> => {
+    await delay(500);
+    mockDocuments.push({ id: uuidv4(), name, content, uploadedBy });
+    return { success: true, message: "Document uploaded successfully." };
+  },
+
+  deleteDocument: async (documentId: string): Promise<{ success: boolean; message: string }> => {
+    await delay(500);
+    const index = mockDocuments.findIndex((doc) => doc.id === documentId);
+    if (index !== -1) {
+      mockDocuments.splice(index, 1);
+      return { success: true, message: "Document deleted successfully." };
+    }
+    return { success: false, message: "Document not found." };
+  },
+};
+
+export const ingestionService = {
+  fetchIngestionStatus: async (): Promise<typeof mockIngestionStatus> => {
+    await delay(500);
+    return mockIngestionStatus;
+  },
+
+  triggerIngestion: async (): Promise<{ success: boolean; message: string }> => {
+    await delay(500);
+    mockIngestionStatus.push({ id: uuidv4(), status: "In Progress", timestamp: new Date().toISOString() });
+    return { success: true, message: "Ingestion triggered successfully." };
+  },
+};
+
+export const qaService = {
+  askQuestion: async (question: string): Promise<{ answer: string; documentExcerpt: string }> => {
+    await delay(500);
+    const response = mockQAResponses.find((qa) => qa.question === question);
+    if (response) {
+      return { answer: response.answer, documentExcerpt: response.documentExcerpt };
+    }
+    return { answer: "No relevant answer found.", documentExcerpt: "" };
+  },
+};
