@@ -4,7 +4,7 @@ import { InputHTMLAttributes } from "react";
 
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {label?: string;}
-export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {label?: string;}
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {label?: string; className?: string;}
 
 export interface DropdownProps {
   options: string[];
