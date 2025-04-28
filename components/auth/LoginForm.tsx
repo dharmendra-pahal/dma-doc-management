@@ -1,11 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { authService } from "@/lib/api";
 import { Input } from "@/components/common/Input";
 import { Button } from "@/components/common/Button";
+import { useAuthContext } from "@/contexts/AuthContext";
 
 export default function LoginForm() {
+  const { login } =  useAuthContext();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -17,7 +18,7 @@ export default function LoginForm() {
     setLoading(true);
 
     try {
-     const res = await authService.login(email, password);     
+     await login(email, password);     
       // Redirect handled inside useAuth
     } catch (err: any) {
       setError(err.message || "Something went wrong");

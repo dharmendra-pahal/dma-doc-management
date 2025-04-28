@@ -1,7 +1,7 @@
 // /lib/api.ts
 
 import { v4 as uuidv4 } from "uuid";
-import { User, UserResponse } from "./types";
+import { DocumentData, User, UserResponse } from "./types";
 
 const mockUsers: User[] = [
   {
@@ -13,7 +13,7 @@ const mockUsers: User[] = [
 ];
 
 // Mock data for documents, ingestion, and Q&A
-const mockDocuments = [
+const mockDocuments: DocumentData[] = [
   { id: uuidv4(), name: "Document 1", content: "Sample content for Document 1", uploadedBy: "test@example.com" },
   { id: uuidv4(), name: "Document 2", content: "Sample content for Document 2", uploadedBy: "admin@example.com" },
 ];
@@ -86,20 +86,20 @@ export const documentService = {
     return mockDocuments;
   },
 
-  uploadDocument: async (name: string, content: string, uploadedBy: string): Promise<{ success: boolean; message: string }> => {
+  uploadDocument: async (name: string, content: string, uploadedBy: string): Promise<{ success: boolean; message: string; mockDocuments: DocumentData[]}> => {
     await delay(500);
     mockDocuments.push({ id: uuidv4(), name, content, uploadedBy });
-    return { success: true, message: "Document uploaded successfully." };
+    return { success: true, mockDocuments ,message: "Document uploaded successfully." };
   },
 
-  deleteDocument: async (documentId: string): Promise<{ success: boolean; message: string }> => {
+  deleteDocument: async (documentId: string): Promise<{ success: boolean; message: string, mockDocuments: DocumentData[] }> => {
     await delay(500);
     const index = mockDocuments.findIndex((doc) => doc.id === documentId);
     if (index !== -1) {
       mockDocuments.splice(index, 1);
-      return { success: true, message: "Document deleted successfully." };
+      return { success: true, mockDocuments, message: "Document deleted successfully." };
     }
-    return { success: false, message: "Document not found." };
+    return { success: false, mockDocuments, message: "Document not found." };
   },
 };
 

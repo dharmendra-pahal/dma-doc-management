@@ -1,12 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { authService } from "@/lib/api";
 import { Input } from "../common/Input";
 import { Button } from "../common/Button";
 import Dropdown from "../common/Dropdown";
+import { useAuthContext } from "@/contexts/AuthContext";
 
 export default function SignupForm() {
+  const { signup } = useAuthContext();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("User");
@@ -15,8 +16,7 @@ export default function SignupForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const res = await authService.signup(email, password, role);
-      console.log("signup", res);
+      await signup(email, password, role);
       setEmail("");
       setPassword("");
     } catch (err: any) {

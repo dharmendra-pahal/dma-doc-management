@@ -27,3 +27,16 @@ export interface AuthContextType {
   signup: (email: string, password: string, role:string) => Promise<void>;
   logout: () => void;
 }
+
+
+export interface DocumentData {
+  id: string;
+  name: string;
+  content: string;
+  uploadedBy: string;
+}
+
+
+
+
+
