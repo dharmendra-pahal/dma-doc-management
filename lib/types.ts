@@ -8,6 +8,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {la
 
 export interface DropdownProps {
   options: string[];
+  selected?: string;
   onChange: (selectedValue: string) => void;
 }
 
