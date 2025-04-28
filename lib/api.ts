@@ -1,7 +1,7 @@
 // /lib/api.ts
 
 import { v4 as uuidv4 } from "uuid";
-import { DocumentData, User, UserResponse } from "./types";
+import { DocumentData, Ingestion, User, UserResponse } from "./types";
 
 const mockUsers: User[] = [
   {
@@ -18,7 +18,7 @@ const mockDocuments: DocumentData[] = [
   { id: uuidv4(), name: "Document 2", content: "Sample content for Document 2", uploadedBy: "admin@example.com" },
 ];
 
-const mockIngestionStatus = [
+const mockIngestionStatus : Ingestion[] = [
   { id: uuidv4(), status: "Completed", timestamp: new Date().toISOString() },
   { id: uuidv4(), status: "In Progress", timestamp: new Date().toISOString() },
 ];
@@ -109,10 +109,10 @@ export const ingestionService = {
     return mockIngestionStatus;
   },
 
-  triggerIngestion: async (): Promise<{ success: boolean; message: string }> => {
+  triggerIngestion: async (): Promise<{ success: boolean; message: string; mockIngestionStatus: Ingestion[] }> => {
     await delay(500);
     mockIngestionStatus.push({ id: uuidv4(), status: "In Progress", timestamp: new Date().toISOString() });
-    return { success: true, message: "Ingestion triggered successfully." };
+    return { success: true, mockIngestionStatus, message: "Ingestion triggered successfully." };
   },
 };
 

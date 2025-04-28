@@ -36,6 +36,11 @@ export interface DocumentData {
   uploadedBy: string;
 }
 
+export interface Ingestion {
+  id: string;
+  status: string;
+  timestamp: string;
+}
 
 
 

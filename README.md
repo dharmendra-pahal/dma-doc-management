@@ -1,4 +1,3 @@
-
 # 📚 Document Management Application (Frontend)
 
 This project is a **Next.js 15** application using the **App Router**, built for managing users and documents with a Q&A interface.
@@ -133,7 +132,10 @@ NEXT_PUBLIC_API_URL=http://localhost:3000/api
 Built with ❤️ by [Dharmendra Pahal].
 
 ---
-```
+
+### Note for Future Development
+
+- Always use `"use client"` at the top of components that use hooks or dynamic data APIs to ensure they are treated as client components in Next.js.
 
 ---
 
