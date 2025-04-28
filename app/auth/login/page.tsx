@@ -7,7 +7,7 @@ export default function LoginPage() {
   return (
     <div className="flex flex-col gap-2 justify-center items-center h-screen">
       <LoginForm />
-      <p>Don't have an Account?</p>
+      <p>{`Don't`} have an Account?</p>
       <Link href={"/auth/signup"}>Signup here</Link>
     </div>
   );
