@@ -25,6 +25,15 @@ const mockIngestionStatus : Ingestion[] = [
 
 const mockQAResponses = [
   { question: "What is Document 1?", answer: "Document 1 is a sample document.", documentExcerpt: "Sample content for Document 1" },
+  { question: "How do I upload a document?", answer: "To upload a document, go to the Document Management page and use the upload feature.", documentExcerpt: "Navigate to the Document Management page and click on the upload button." },
+  { question: "What is the status of the latest ingestion?", answer: "The latest ingestion is in progress.", documentExcerpt: "Ingestion started on April 28, 2025, and is currently in progress." },
+  { question: "Who uploaded Document 2?", answer: "Document 2 was uploaded by admin@example.com.", documentExcerpt: "Uploaded by admin@example.com on April 27, 2025." },
+  { question: "Can I delete a document?", answer: "Yes, you can delete a document from the Document Management page.", documentExcerpt: "Go to the Document Management page and click on the delete button next to the document." },
+  { question: "What is the purpose of the Q&A interface?", answer: "The Q&A interface allows users to ask questions and retrieve relevant document excerpts.", documentExcerpt: "Use the Q&A interface to ask questions and get answers based on document content." },
+  { question: "How do I manage users?", answer: "User management is available to admins on the User Management page.", documentExcerpt: "Admins can assign roles and manage users from the User Management page." },
+  { question: "What is the ingestion process?", answer: "The ingestion process involves processing and indexing uploaded documents.", documentExcerpt: "Ingestion processes documents to make them searchable and accessible." },
+  { question: "How do I log out?", answer: "You can log out by clicking the logout button in the top-right corner of the dashboard.", documentExcerpt: "Click the logout button to end your session." },
+  { question: "What is the role of an admin?", answer: "Admins can manage users, assign roles, and oversee document and ingestion management.", documentExcerpt: "Admins have access to User Management and other administrative features." }
 ];
 
 const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
