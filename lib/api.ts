@@ -6,9 +6,15 @@ import { DocumentData, Ingestion, User, UserResponse } from "./types";
 const mockUsers: User[] = [
   {
     id: 'someid',
-    email: "test@example.com",
+    email: "user@example.com",
     password: "password",
     role: "user",
+  },
+  {
+    id: 'someidagain',
+    email: "admin@example.com",
+    password: "password",
+    role: "admin",
   },
 ];
 
