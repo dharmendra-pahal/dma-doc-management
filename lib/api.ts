@@ -126,6 +126,12 @@ export const ingestionService = {
 };
 
 export const qaService = {
+  fetchQuestions: async (): Promise<string[]> => {
+    await delay(500);
+    return mockQAResponses.map((qa) => qa.question);
+  }
+  , 
+
   askQuestion: async (question: string): Promise<{ answer: string; documentExcerpt: string }> => {
     await delay(500);
     const response = mockQAResponses.find((qa) => qa.question === question);
