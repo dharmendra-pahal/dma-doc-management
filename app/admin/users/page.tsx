@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { userService } from "../../../lib/api";
-import { User } from "../../../lib/types";
+import { userService } from "@/lib/api";
+import { User } from "@/lib/types";
 import Dropdown from "@/components/common/Dropdown";
 
 const UserManagementPage = () => {

@@ -3,12 +3,14 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { authService } from "@/lib/api"; // using mock authService
 import { AuthContextType, UserResponse } from "@/lib/types";
+import { useRouter } from "next/navigation"; // Import useRouter
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<UserResponse | undefined>(undefined);
   const [token, setToken] = useState<string | undefined>(undefined);
+  const router = useRouter(); // Initialize useRouter
 
   useEffect(() => {
     // Load from localStorage if already logged in
@@ -29,9 +31,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
     localStorage.setItem("user", JSON.stringify(user));
     localStorage.setItem("token", token);
+    router.push("/dashboard"); // Redirect to dashboard on successful login
   };
 
-  const signup = async (email: string, password: string, role:string) => {
+  const signup = async (email: string, password: string, role: string) => {
     const { user, token } = await authService.signup(email, password, role);
     setUser(user);
     setToken(token);
@@ -40,6 +43,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
     localStorage.setItem("user", JSON.stringify(user));
     localStorage.setItem("token", token);
+    router.push("/dashboard"); // Redirect to dashboard on successful signup
   };
 
   const logout = () => {
@@ -47,6 +51,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setToken(undefined);
     localStorage.removeItem("user");
     localStorage.removeItem("token");
+    router.push("/auth/login"); // Redirect to login page on logout
   };
 
   return (
