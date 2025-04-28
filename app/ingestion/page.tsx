@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { ingestionService } from "../../lib/api";
 import { Ingestion } from "@/lib/types";
+import { Button } from "@/components/common/Button";
 
 const IngestionManagementPage = () => {
   const [ingestionStatuses, setIngestionStatuses] = useState<Ingestion[]>([]);
@@ -48,12 +49,12 @@ const IngestionManagementPage = () => {
       {loading && <p>Loading...</p>}
       {error && <p className="text-red-500">{error}</p>}
 
-      <button
+      <Button
         onClick={handleTriggerIngestion}
         className="bg-blue-500 text-white px-4 py-2 rounded mb-4"
       >
         Trigger Ingestion
-      </button>
+      </Button>
 
       <h2 className="text-lg font-semibold">Ingestion Statuses</h2>
       <ul className="list-disc pl-5">

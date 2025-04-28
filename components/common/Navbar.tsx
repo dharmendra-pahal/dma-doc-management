@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { useAuthContext } from "../../contexts/AuthContext";
+import { Button } from "./Button";
 
 const Navbar = () => {
   const { user, logout } = useAuthContext();
@@ -10,12 +11,12 @@ const Navbar = () => {
       <div className="text-lg font-bold">Document Management App</div>
       <div>
         {user ? (
-          <button
+          <Button
             onClick={logout}
             className="bg-red-500 px-4 py-1 rounded hover:bg-red-600"
           >
             Logout
-          </button>
+          </Button>
         ) : (
           <></>
         )}

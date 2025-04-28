@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { documentService } from "../../lib/api";
 import { DocumentData } from "@/lib/types";
 import { useAuthContext } from "@/contexts/AuthContext";
+import { Button } from "@/components/common/Button";
 
 const DocumentManagementPage = () => {
   const {user} = useAuthContext();
@@ -86,9 +87,9 @@ const DocumentManagementPage = () => {
           onChange={(e) => setNewDocument(e.target.files ? e.target.files[0] : null)}
           className="border p-2 mb-2 w-full"
         />
-        <button onClick={handleUpload} className="bg-blue-500 text-white px-4 py-2 rounded">
+        <Button onClick={handleUpload} className="bg-blue-500 text-white px-4 py-2 rounded">
           Upload
-        </button>
+        </Button>
       </div>
 
       <h2 className="text-lg font-semibold">Uploaded Documents</h2>
@@ -96,12 +97,12 @@ const DocumentManagementPage = () => {
         {documents.map((doc) => (
           <li key={doc.id} className="mb-2">
             <span className="font-semibold">{doc.name}</span>: {doc.content}
-            <button
+            <Button
               onClick={() => handleDelete(doc.id)}
               className="ml-4 text-red-500 hover:underline"
             >
               Delete
-            </button>
+            </Button>
           </li>
         ))}
       </ul>
