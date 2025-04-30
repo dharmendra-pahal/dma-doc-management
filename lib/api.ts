@@ -24,9 +24,10 @@ const mockDocuments: DocumentData[] = [
   { id: uuidv4(), name: "Document 2", content: "Sample content for Document 2", uploadedBy: "admin@example.com" },
 ];
 
-const mockIngestionStatus : Ingestion[] = [
-  { id: uuidv4(), status: "Completed", timestamp: new Date().toISOString() },
-  { id: uuidv4(), status: "In Progress", timestamp: new Date().toISOString() },
+// Updated mockIngestionStatus to include a name field
+const mockIngestionStatus: Ingestion[] = [
+  { id: uuidv4(), name: "Initial Ingestion", status: "Completed", timestamp: new Date().toISOString() },
+  { id: uuidv4(), name: "Second Ingestion", status: "In Progress", timestamp: new Date().toISOString() },
 ];
 
 const mockQAResponses = [
@@ -124,10 +125,22 @@ export const ingestionService = {
     return mockIngestionStatus;
   },
 
-  triggerIngestion: async (): Promise<{ success: boolean; message: string; mockIngestionStatus: Ingestion[] }> => {
+  triggerIngestion: async (name: string): Promise<{ success: boolean; message: string; mockIngestionStatus: Ingestion[] }> => {
     await delay(500);
-    mockIngestionStatus.push({ id: uuidv4(), status: "In Progress", timestamp: new Date().toISOString() });
+    mockIngestionStatus.push({ id: uuidv4(), name, status: "In Progress", timestamp: new Date().toISOString() });
     return { success: true, mockIngestionStatus, message: "Ingestion triggered successfully." };
+  },
+
+  updateIngestionStatus: async (ingestionId: string): Promise<{ success: boolean; message: string; mockIngestionStatus: Ingestion[] }> => {
+    await delay(500);
+    const ingestion = mockIngestionStatus.find((status) => status.id === ingestionId);
+    if (ingestion) {      
+      mockIngestionStatus.push({ ...ingestion, id: uuidv4(),  status: "Completed", timestamp: new Date().toISOString() });
+      console.log("mockIngestionStatus", mockIngestionStatus);
+      
+      return { success: true, mockIngestionStatus, message: "Ingestion status updated successfully." };
+    }
+    return { success: false, mockIngestionStatus, message: "Ingestion not found." };
   },
 };
 

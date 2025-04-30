@@ -39,6 +39,7 @@ export interface DocumentData {
 
 export interface Ingestion {
   id: string;
+  name: string;
   status: string;
   timestamp: string;
 }
