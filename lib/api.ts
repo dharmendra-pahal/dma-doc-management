@@ -26,7 +26,7 @@ const mockDocuments: DocumentData[] = [
 
 // Updated mockIngestionStatus to include a name field
 const mockIngestionStatus: Ingestion[] = [
-  { id: uuidv4(), name: "Initial Ingestion", status: "Completed", timestamp: new Date().toISOString() },
+  { id: uuidv4(), name: "Initial Ingestion", status: "Completed", timestamp: new Date().toISOString(), done: true },
   { id: uuidv4(), name: "Second Ingestion", status: "In Progress", timestamp: new Date().toISOString() },
 ];
 
@@ -134,7 +134,8 @@ export const ingestionService = {
   updateIngestionStatus: async (ingestionId: string): Promise<{ success: boolean; message: string; mockIngestionStatus: Ingestion[] }> => {
     await delay(500);
     const ingestion = mockIngestionStatus.find((status) => status.id === ingestionId);
-    if (ingestion) {      
+    if (ingestion) {
+      ingestion.done = true; // Mark as done      
       mockIngestionStatus.push({ ...ingestion, id: uuidv4(),  status: "Completed", timestamp: new Date().toISOString() });
       console.log("mockIngestionStatus", mockIngestionStatus);
       

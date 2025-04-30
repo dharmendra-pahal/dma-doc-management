@@ -42,6 +42,7 @@ export interface Ingestion {
   name: string;
   status: string;
   timestamp: string;
+  done?:boolean;
 }
 
 
