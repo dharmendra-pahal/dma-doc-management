@@ -22,8 +22,8 @@ This project is a **Next.js 15** application using the **App Router**, built for
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/your-repo-name.git
-cd your-repo-name
+git clone https://github.com/dharmendra-pahal/dma-doc-management.git
+cd dma-doc-management
 ```
 
 2. Install dependencies:
@@ -60,7 +60,7 @@ docker-compose up --build
 ---
 
 ## 🧪 Running Tests
-Is Not a part of this deployment
+**Is Not a part of this deployment**
 ```bash
 npm run test
 ```
